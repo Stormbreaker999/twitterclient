@@ -3,6 +3,7 @@ import { BiHomeCircle } from "react-icons/bi";
 import { FaTwitter } from "react-icons/fa";
 import Sidebar from "../Components/Sidebar";
 import FeedCard from "@/Components/FeedCard";
+import AuthenticationComponent from "@/Components/Authentication";
 
 
 
@@ -20,7 +21,10 @@ export default function Home() {
         <div className="col-span-5 border-l-2 border-r-2 border-slate-500">
           <FeedCard/>
         </div>
-        <div className="col-span-4"></div>
+        <div className="col-span-4 p-5 ">
+          
+          <AuthenticationComponent/>
+        </div>
       </div>
     </div>
   );
