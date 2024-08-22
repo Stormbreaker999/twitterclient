@@ -16,7 +16,7 @@ function AuthenticationComponent() {
         return toast.error("Google token not found")
       }
       const data =await graphqlClient.request(verifyUserGoogleTokenQuery, {token:googleToken});
-      console.log(data);
+      //console.log(data);
       
       const {verifyGoogleToken}=data;
       toast.success("Verified Succes");
@@ -24,7 +24,7 @@ function AuthenticationComponent() {
       if(verifyGoogleToken){
         window.localStorage.setItem("__twitter_token",verifyGoogleToken);
       }
-      await queryClient.invalidateQueries()
+      await queryClient.invalidateQueries({queryKey:['current-user']})
   },[queryClient])
   return (
     <div className='border p-5 bg-slate-700 rounded-lg'>
