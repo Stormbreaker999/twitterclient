@@ -26,7 +26,10 @@ function TweetBox({user}:any){
           imageURL:url
       })
       setContent("");
-  },[content,url])
+  },[content,url,mutate])
+
+  
+
   return(
       
       <div className='grid grid-cols-12 border-t border-gray-600 p-4 hover:bg-gray-800 transition-all gap-2'>
@@ -40,17 +43,18 @@ function TweetBox({user}:any){
                */}
                <CldUploadWidget uploadPreset="twitter_cloudinary" 
                options={{
+                
                 resourceType:'image',
                 clientAllowedFormats:['jpg','jpedg', 'png', 'gif']
+               }} onSuccess={(results)=>{
+                setUrl(results?.info?.url);
                }}>
-                {({ open,results}) => {
+                {({ open}) => {
                     
-                    useEffect(()=>{
-                      setUrl(results?.info?.url);
-                    },[results])
+                    
                     return (
                       <button className="button" onClick={async () => {
-                        open();
+                        await open();
                         
                         
                         

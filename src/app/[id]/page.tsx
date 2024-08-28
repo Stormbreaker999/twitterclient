@@ -26,7 +26,7 @@ function UserProfilePage() {
   const amIFollowing=useMemo(()=>{
       if(!user) return false;
       return (user.followers?.findIndex(el=>el?.id===currentUser?.id)??-1)>=0;
-  },[currentUser, user?.followers])
+  },[user, currentUser, user?.followers])
 
   const handleFollow=async()=>{
       await graphqlClient.request(followUserMutation,{to:user?.id??""})

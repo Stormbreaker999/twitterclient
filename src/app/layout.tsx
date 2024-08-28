@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       
       <body className={quickSand.className}>
-        <Mainpage children={children}/>
+        <Mainpage>{children}</Mainpage>
       
       </body>
       
