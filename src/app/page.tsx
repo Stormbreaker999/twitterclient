@@ -10,7 +10,68 @@ import { useCreateTweet, useGetAllTweets } from "../../hooks/tweet";
 import { useCallback, useEffect, useState } from "react";
 import avatar from "../../public/avatar.jpg"
 import { CldImage, CldUploadButton, CldUploadWidget } from "next-cloudinary";
+
 import toast from "react-hot-toast";
+interface CloudinaryUploadWidgetInfo {
+  access_mode: 'public' | 'authenticated';
+  api_key: string;
+  asset_id: string;
+  batchId: string;
+  bytes: number;
+  context?: Record<string, Record<string, string>>;
+  created_at: string;
+  etag: string;
+  folder: string;
+  format: string;
+  height: number;
+  hook_execution?: Record<string, unknown>;
+  id: string;
+  info?: Record<string, unknown>;
+  original_filename: string;
+  pages: number;
+  path: string;
+  placeholder: boolean;
+  public_id: string;
+  resource_type: 'image' | 'raw' | 'video' | 'auto';
+  secure_url: string;
+  signature: string;
+  tags: string[];
+  thumbnail_url: string;
+  type: 'upload' | 'private' | 'authenticated';
+  url: string;
+  version: number;
+  width: number;
+  [key: string]: unknown;
+}
+var def_widgetinfo:CloudinaryUploadWidgetInfo={
+  access_mode:'public',
+  api_key: "",
+  asset_id: "",
+  batchId: "",
+  bytes: 0,
+  created_at: "",
+  etag: "",
+  folder: "",
+  format: "",
+  height: 0,
+  id: "",
+  original_filename: "",
+  pages: 0,
+  path: "",
+  placeholder: true,
+  public_id: "",
+  resource_type: 'image' ,
+  secure_url: "",
+  signature: "",
+  tags: [""],
+  thumbnail_url: "",
+  type: 'upload',
+  url: "",
+  version: 0,
+  width: 0,
+  key: [""],
+
+};
 function TweetBox({user}:any){
   const {mutate}=useCreateTweet();
 
@@ -46,8 +107,9 @@ function TweetBox({user}:any){
                 
                 resourceType:'image',
                 clientAllowedFormats:['jpg','jpedg', 'png', 'gif']
-               }} onSuccess={(results)=>{
-                setUrl(results?.info?.url);
+               }} onSuccess={({info})=>{
+                 const inf=info as CloudinaryUploadWidgetInfo;
+                 setUrl(inf.url);
                }}>
                 {({ open}) => {
                     
