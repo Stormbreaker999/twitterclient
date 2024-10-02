@@ -39,6 +39,9 @@ export const getCurrentUserQuery=graphql(`#graphql
                     lastName
                     profileImageURL
                 }
+                usersLiked{
+                    id
+                }
             }
         }
     }

@@ -22,7 +22,8 @@ export const useGetUserById=(payload:any)=>{
             
             
             return res;
-        }
+        },
+        
     })
     // console.log(query);
     return {...query, userById:query.data?.getUserById}

@@ -8,6 +8,9 @@ import { useCurrentUser } from '../../../hooks/user'
 import { Tweet } from '../../../gql/graphql'
 import { useCreateTweet } from '../../../hooks/tweet'
 import Link from 'next/link'
+import { useQueryClient } from '@tanstack/react-query'
+import { graphqlClient } from '../../../clients/api'
+import { likeTweet } from '../../../graphql/mutation/tweet'
 
 interface FeedCardProps {
     data:Tweet
@@ -15,10 +18,16 @@ interface FeedCardProps {
 
 const Card:React.FC<FeedCardProps>=(props)=>{
     const {data}=props;
+    const queryClient=useQueryClient();
+    const handleLike=async(id:string)=>{
+        await graphqlClient.request(likeTweet, {id});
+        queryClient.invalidateQueries({queryKey:['all-tweets']});
+
+    }
     return(
         <div className='grid grid-cols-12 border-t border-gray-600 p-4 hover:bg-gray-800 transition-all '>
         <div className='col-span-1'>
-        {data && data.author && data.author.profileImageURL && <Image className='rounded-full' src={data.author.profileImageURL||""} alt="user_image" height={50} width={50} />}
+        {data && data.author && data.author.profileImageURL && <Link href={`/${data.author?.id}`}><Image className='rounded-full cursor-pointer' src={data.author.profileImageURL||""} alt="user_image" height={50} width={50} /></Link>}
         </div>
         <div className='col-span-11 p-2 px-4'>
             <div className='flex gap-3'>
@@ -34,8 +43,12 @@ const Card:React.FC<FeedCardProps>=(props)=>{
                 <div>
                     <FaRetweet/>
                 </div>
-                <div>
-                    <AiOutlineHeart/>
+                <div className='flex justify-between gap-2'>
+                    <AiOutlineHeart className='cursor-pointer' onClick={()=>{
+                        handleLike(data.id)}
+                        
+                    }/>
+                    <div className='text-base'>{data.usersLiked?.length}</div>
                 </div>
                 <div>
                     <BiUpload/>
@@ -51,7 +64,6 @@ const Card:React.FC<FeedCardProps>=(props)=>{
 
 function FeedCard({tweets}:any) {
     // console.log(tweets);
-    
   return (
     <div className='h-screen'>
         

@@ -7,3 +7,9 @@ export const createTweetMutation=graphql(`#graphql
         }
     }
 `)
+
+export const likeTweet=graphql(`#graphql
+    mutation LikeTweet($id: String!) {
+        likeTweet(id: $id)
+    }   
+`)

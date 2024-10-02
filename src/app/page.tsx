@@ -7,7 +7,7 @@ import FeedCard from "@/Components/FeedCard";
 import { useCurrentUser } from "../../hooks/user";
 import TwitterLayout from "@/Components/Layout/TwitterLayout";
 import { useCreateTweet, useGetAllTweets } from "../../hooks/tweet";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import avatar from "../../public/avatar.jpg"
 import { CldImage, CldUploadButton, CldUploadWidget } from "next-cloudinary";
 
@@ -98,7 +98,7 @@ function TweetBox({user}:any){
       <Image className='rounded-full' src={user?user.profileImageURL:avatar} alt="user_image" height={50} width={50} />
       </div> 
       <div className='col-span-11'>
-          <textarea value={content} onChange={(e)=>setContent(e.target.value)}  id='textarea'  className='border-b border-slate-100 w-full bg-transparent text-xl px-3' placeholder="What's Happening" rows={4}></textarea>
+          <textarea value={content} onChange={(e)=>setContent(e.target.value)} id='textarea'  className='border-b border-slate-100 w-full bg-transparent text-xl px-3' placeholder="What's Happening" rows={4}></textarea>
           <div className='flex mt-2 justify-between'>
               {/* <FaRegImage className='text-xl cursor-pointer hover:bg-slate-500 rounded-full' onClick={handleSelectImage}/>
                */}
