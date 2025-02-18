@@ -23,9 +23,13 @@ export const useCreateTweet=()=>{
 }
 
 export const useGetAllTweets=()=>{
+    
     const query=useQuery({
         queryKey:['all-tweets'],
         queryFn:()=>graphqlClient.request(getAllTweetQuery),
+        
     });
+    toast.success('Done',{id:'2'})
     return {...query, tweets:query.data?.getAllTweets};
 }
+

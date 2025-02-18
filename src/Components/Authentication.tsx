@@ -28,9 +28,9 @@ function AuthenticationComponent() {
   },[queryClient])
   return (
     <div className='border p-5 bg-slate-700 rounded-lg'>
-      <h1 className="text-2xl ml-2">New to Twitter</h1>
+      <h1 className="text-2xl ml-2">Login</h1>
       <GoogleLogin onSuccess={handleLoginWithGoogle}/>
-      
+
     </div>
   )
 }
